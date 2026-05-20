@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Squadra - Pizza, Grill & Coffee</title>
+    
+    <!-- Google Fonts: Shrikhand for retro headers, Poppins for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --italy-green: #00B050;
+            --italy-white: #ffffff;
+            --italy-red: #FF3333;
+            --dark-bg: #000000;
+            --shadow-3d: 0 15px 35px rgba(0, 0, 0, 0.4);
+            --border-radius-3d: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0c0c0c;
+            color: #ffffff;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        /* Top Flag Stripe Accent */
+        .top-stripe {
+            display: flex;
+            height: 12px;
+            width: 100%;
+        }
+        .stripe-g { background-color: var(--italy-green); flex: 1; }
+        .stripe-w { background-color: var(--italy-white); flex: 1; }
+        .stripe-r { background-color: var(--italy-red); flex: 1; }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, #121212 0%, #0c0c0c 100%);
+        }
+
+        .logo-text {
+            font-family: 'Shrikhand', cursive;
+            font-size: 3.8rem;
+            color: var(--italy-white);
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px var(--italy-green), -3px -3px 0px var(--italy-red);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #999999;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 600;
+        }
+
+        /* Welcome Section */
+        .intro-box {
+            max-width: 850px;
+            margin: 0 auto 40px auto;
+            padding: 30px;
+            background: #141414;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            text-align: center;
+            border-top: 4px solid var(--italy-green);
+            border-bottom: 4px solid var(--italy-red);
+        }
+
+        .intro-box h2 {
+            font-family: 'Shrikhand', cursive;
+            font-size: 1.8rem;
+            color: var(--italy-white);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .intro-box p {
+            line-height: 1.6;
+            color: #cccccc;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .phone-badge {
+            font-weight: 700;
+            color: #ffffff;
+            background: #1e1e1e;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--italy-green);
+            box-shadow: 0 4px 10px rgba(0, 176, 80, 0.2);
+        }
+
+        /* Category Buttons styling */
+        .categories-wrapper {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .categories-title {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888888;
+        }
+
+        .buttons-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .category-button {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 2px solid #2d2d2d;
+            padding: 14px 24px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0px #0b0b0b;
+        }
+
+        .category-button:hover {
+            border-color: var(--italy-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px #06401f;
+        }
+
+        .category-button.active {
+            background-color: var(--italy-green);
+            border-color: var(--italy-white);
+            color: #ffffff;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px #000000;
+        }
+
+        /* Dynamic Showcase Container */
+        .showcase-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 150px;
+        }
+
+        /* Mockup Styled Dark Panel */
+        .mockup-panel {
+            background-color: var(--dark-bg);
+            border-radius: var(--border-radius-3d);
+            position: relative;
+            padding: 60px 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-3d);
+            border: 3px solid #1f1f1f;
+        }
+
+        /* Curved Stripes Background (SVG based) */
+        .mockup-svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 350px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Header Layout matching the design mockup */
+        .mockup-header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 65px;
+            padding-right: 140px; 
+        }
+
+        .mockup-title {
+            font-family: 'Shrikhand', cursive;
+            font-size: 4rem;
+            color: #000000;
+            line-height: 1;
+            text-shadow: 1px 1px 0px #ffffff, -1px -1px 0px #ffffff;
+            transform: rotate(-3deg);
+            transform-origin: left;
+        }
+
+        .mockup-title span {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: -5px;
+            color: #000000;
+        }
+
+        /* Floating Circular Featured Image Badge */
+        .floating-badge {
+            position: absolute;
+            top: -20px;
+            right: 0px;
+            width: 140px;
+            height: 140px;
+            background-color: var(--italy-green);
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            z-index: 3;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .floating-badge:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .floating-badge img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+        /* The Menu Grid with squares */
+        .mockup-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* 3D Block Cards */
+        .mockup-card {
+            border-radius: 28px;
+            padding: 25px;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform: perspective(800px) rotateX(2deg);
+        }
+
+        .mockup-card:hover {
+            transform: translateY(-8px) scale(1.02) rotateX(4deg);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.7);
+        }
+
+        /* Color variations: Groups of 3 */
+        .card-block-green {
+            background-color: var(--italy-green);
+            color: #ffffff;
+        }
+
+        .card-block-white {
+            background-color: var(--italy-white);
+            color: #000000;
+        }
+
+        .card-block-red {
+            background-color: var(--italy-red);
+            color: #ffffff;
+        }
+
+        /* Internal Card Elements */
+        .card-image-box {
+            width: 100%;
+            height: 150px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .card-name {
+            font-family: 'Shrikhand', cursive;
+            font-size: 1.2rem;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .card-price {
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        /* Price tag styling inside each background block */
+        .card-block-green .card-price {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid #ffffff;
+        }
+
+        .card-block-white .card-price {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .card-block-red .card-price {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid #ffffff;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+            border-top: 1px dashed rgba(255,255,255,0.3);
+            padding-top: 10px;
+        }
+
+        .card-block-white .card-desc {
+            border-top: 1px dashed rgba(0,0,0,0.15);
+        }
+
+        /* Placeholder state */
+        .empty-state {
+            text-align: center;
+            color: #555555;
+            font-size: 1.1rem;
+            padding: 50px;
+            background: #111111;
+            border-radius: 18px;
+            border: 2px dashed #222222;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: #555555;
+            border-top: 1px solid #141414;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-stripe">
+        <div class="stripe-g"></div>
+        <div class="stripe-w"></div>
+        <div class="stripe-r"></div>
+    </div>
+
+    <header>
+        <div class="logo-text">La Squadra</div>
+        <div class="subtitle">Pizza, Grill & Coffee</div>
+    </header>
+
+    <!-- Intro Banner -->
+    <section class="intro-box">
+        <h2>Une cuisine authentique au goût unique</h2>
+        <p>
+            Parcourez les pages de notre carte officielle. Choisissez une catégorie pour afficher nos spécialités avec leurs prix triés par ordre croissant.
+        </p>
+        <div class="phone-badge">
+            📞 COMMANDE RAPIDE : 05 55 16 05 38
+        </div>
+    </section>
+
+    <!-- Categories Tab Selection -->
+    <section class="categories-wrapper">
+        <h3 class="categories-title">Faites votre choix</h3>
+        <div class="buttons-grid">
+            <button class="category-button" onclick="loadMockupCategory('pizza', this)"> Pizzas</button>
+            <button class="category-button" onclick="loadMockupCategory('burgers', this)"> Burgers & Sandwiches</button>
+            <button class="category-button" onclick="loadMockupCategory('tacos', this)"> Tacos & Fajitas</button>
+            <button class="category-button" onclick="loadMockupCategory('poutines', this)"> Poutines & Salades</button>
+            <button class="category-button" onclick="loadMockupCategory('drinks', this)"> Cafés & Boissons</button>
+            <button class="category-button" onclick="loadMockupCategory('desserts', this)"> Crêpes & Desserts</button>
+            <button class="category-button" onclick="loadMockupCategory('grillades', this)"> Grillades</button>
+        </div>
+    </section>
+
+    <!-- Target Output Display -->
+    <section class="showcase-container" id="menu-target">
+        <div class="empty-state">
+            Sélectionnez l'une de nos catégories ci-dessus pour charger la carte.
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 La Squadra - Sidi Bel Abbès, Algérie. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Full database from all 6 menu images
+        const menuCatalog = {
+            pizza: {
+                title: "Pizzas",
+                badgeImage: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "La Squadra", price: "800 DA", desc: "Sauce tomate, pesto, crème fraîche (élaborée sur 3 parties distinctes)", img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Margarita", price: "500 DA", desc: "Sauce tomate, fromage mozzarella râpé", img: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Végétarienne", price: "650 DA", desc: "Sauce tomate, assortiment de légumes de saison, champignons frais", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506715738235338903/OIP-removebg-preview_1.png?ex=6a0f45e1&is=6a0df461&hm=790bbbec41b7e1634ded7d318f3ac99cc051cfc1ae2d2be00b9dcbe72367ed5d&" },
+                    { name: "Napolitaine", price: "750 DA", desc: "Sauce tomate, anchois savoureux, câpres, assaisonnements", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sicilienne", price: "800 DA", desc: "Sauce tomate, morceaux de thon, champignons", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Poulet Pizza", price: "800 DA", desc: "Sauce blanche crémeuse, morceaux de poulet grillé, champignons", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Fermière", price: "800 DA", desc: "Sauce blanche de la maison, poulet rôti effiloché, champignons", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506718473525530805/62286750-9737-44c1-b13d-57c877882c93-removebg-preview.png?ex=6a0f486d&is=6a0df6ed&hm=5c6b3489f417093a8fcb0f6034d4ccf4051728c9d5c0f86e05385326d51bcca9&" },
+                    { name: "Milanaise", price: "850 DA", desc: "Sauce tomate, viande hachée fraîche, tranches de poivrons", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Fumato", price: "850 DA", desc: "Sauce blanche, tranches de salami fumé, champignons de Paris", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Formaggio", price: "900 DA", desc: "Sélection coulante de cinq fromages gastronomiques", img: "https://images.unsplash.com/photo-1548369937-47519962c11a?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Volcano", price: "900 DA", desc: "Mélange robuste de viande hachée, poulet grillé, champignons, poivron", img: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Paysanne", price: "950 DA", desc: "Sauce blanche, champignons sautés, fromage de chèvre, filet de miel", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506723333226369195/9a3242b1-0562-4ce8-92a6-be6516c27c52-removebg-preview.png?ex=6a0f4cf4&is=6a0dfb74&hm=4fa1ed8a2d562ffad810a4d5647cfaeef46a60a1969f7eff230e266ce09b1e00&" },
+                    { name: "Norvégienne", price: "1000 DA", desc: "Sauce blanche, fines lamelles de saumon fumé", img: "https://images.unsplash.com/photo-1613564834361-9436948817d1?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Mexicane", price: "900 DA", desc: "Merguaez Grille - Poivron - Chompinion - Mozzarella - Chedar", img: "https://images.unsplash.com/photo-1613564834361-9436948817d1?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Méditerranéenne", price: "1400 DA", desc: "Fruits de mer : crevettes, calamars, surimi grillé", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=400" }
+                ]
+            },
+            burgers: {
+                title: "Burgers",
+                badgeImage: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Chicken Burger", price: "350 DA", desc: "Filet de poulet grillé, fromage fondant, salade croquante, tomate", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506775747870851182/Southern-Fried-Chicken-Burger-1.png?ex=6a0f7dc4&is=6a0e2c44&hm=b7bcd03646e9aee34bcca599f15107c08c6f4ca25cb2d1b99f10f7ea1f2f8a9c&" },
+                    { name: "Original Burger", price: "390 DA", desc: "1 steak de viande hachée grillée, fromage, salade, tomate", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Burger Double", price: "550 DA", desc: "2 steaks de viande hachée grillée, fromage fondu, salade, tomate", img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Burger Big", price: "750 DA", desc: "3 steaks de viande hachée grillée, champignons grillés, fromage, salade, tomate", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506776032076894358/images.jpg?ex=6a0f7e08&is=6a0e2c88&hm=62ff9e7efba4761993a07fcacae5aa52161bcc81fc75c43867642ffea925d723&" },
+                    { name: "Big Chezzy", price: "850 DA", desc: "3 steaks de viande hachée, champignons grillés, double fromage au choix, salade, tomate", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Burger Foie", price: "750 DA", desc: "Foie grillé assaisonné, fromage fondu, salade, tranches de tomate", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sandwich Poulet", price: "550 DA", desc: "Filets de poulet grillé, fromage, salade, tomate fraîche", img: "https://cdn.discordapp.com/attachments/1504939123062870116/1506751494060380273/OIP-removebg-preview_8.png?ex=6a0f672e&is=6a0e15ae&hm=e0c0d8d1ce6713b6d8f2937b26ab009385c122fc335f7955b9275cc6b9cc3cce&" },
+                    { name: "Sandwich Viande", price: "690 DA", desc: "Steak de viande hachée grillée, fromage fondu, salade, tomate", img: "https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sandwich Merguez", price: "690 DA", desc: "Merguez grillées, fromage fondu, salade de saison, tomate", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506777197166460999/images_1.jpg?ex=6a0f7f1e&is=6a0e2d9e&hm=58d58b54c9995adf40d5b98c4771cd03177de940c1f6ac4a84cdce0c94820561&" },
+                    { name: "Sandwich Mixte X2", price: "750 DA", desc: "Double viande au choix, fromage, salade fraîche, tomate", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sandwich Mixte X3", price: "850 DA", desc: "Triple viande au choix, fromage fondu, salade, tomate", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sandwich Foie", price: "850 DA", desc: "Foie de veau ou agneau grillé minute, fromage, salade, tomate", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" }
+                ]
+            },
+            tacos: {
+                title: "Wraps",
+                badgeImage: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Tacos Poulet", price: "750 DA / 600 DA", desc: "Poulet mariné grillé, frites intégrées (Prix réduit en formule avec frites)", img: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Tacos Viande Hachée", price: "850 DA / 700 DA", desc: "Viande hachée assaisonnée, frites croustillantes (Option formule frites)", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Tacos Merguez", price: "850 DA / 700 DA", desc: "Merguez grillées du boucher, frites de terre (Option formule frites)", img: "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Tacos Mixte Double", price: "900 DA / 750 DA", desc: "Double portion de viandes mixtes, frites (Option formule frites)", img: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Tacos Mixte Triple", price: "950 DA / 800 DA", desc: "Triple portion de viandes mixtes, frites de terre (Option formule frites)", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Tacos Foie", price: "950 DA / 800 DA", desc: "Foie grillé assaisonné, frites (Option formule frites)", img: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Fajitas Poulet", price: "550 DA", desc: "Filets de poulet, oignons et poivrons caramélisés, sauce fajita", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506777904623915119/images_2.jpg?ex=6a0f7fc7&is=6a0e2e47&hm=4526697ee8a8597d47403ba846d0dc21cce1ddd410afca8685c1f45a1ee54a67&" },
+                    { name: "Fajitas Viande Hachée", price: "650 DA", desc: "Viande hachée parfumée, poivrons rouges et verts, oignons grillés", img: "https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Fajitas Merguez", price: "650 DA", desc: "Merguez sautées avec oignons, poivrons doux, wrap toasté", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Fajitas Foie", price: "800 DA", desc: "Foie de génisse grillé minute, légumes sautés, épices tex-mex", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506778474214457475/i4720-fajitas-mexicaines-au-foie-de-veau-et-aux-herbes.jpg?ex=6a0f804e&is=6a0e2ece&hm=748c107257dc3d3f576b587ec488753e071998427e024120d57096552bc3e3b6&" }
+                ]
+            },
+            poutines: {
+                title: "Frites",
+                badgeImage: "https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Poutine Poulet", price: "650 DA", desc: "Poulet grillé émincé, fromage râpé fondant, sauce brune sur frites", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506782063531917506/poutine-typique-quebecoise-removebg-preview.png?ex=6a0f83a6&is=6a0e3226&hm=be3cd13e972a6f020ddb6238a57c74c18ebe97e6e56b8541579698e99604e5dd&" },
+                    { name: "Poutine Viande", price: "700 DA", desc: "Viande hachée poêlée, fromage, frites de pommes de terre", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506782488914165841/p_129_210929121921_original-removebg-preview.png?ex=6a0f840c&is=6a0e328c&hm=41b90c2e4de80574124c367fcc889e778216d5913439013b631b20c0dd6a8d62&" },
+                    { name: "Salade César", price: "500 DA", desc: "Laitue fraîche, poulet grillé, croûtons dorés, fromage râpé, œuf dur, sauce César", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Salade La Squadra", price: "600 DA", desc: "Tranches de mozzarella, tomates fraîches coupées, basilic, pesto", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506781763173613618/Salade-saisonniere-au-fromage-en-grains-removebg-preview.png?ex=6a0f835e&is=6a0e31de&hm=ac3b983454ef7704af18aca1bb43f3e39ccf9586a009ae13f7c5a3ac9bf24391&" },
+                    { name: "Salade Ultime", price: "800 DA", desc: "Saumon fumé, avocats tranchés, crudités du moment, vinaigrette", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Frites Cheddar", price: "500 DA", desc: "Frites fraîches garnies d'une onctueuse sauce cheddar fondante", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Frites Gruyère", price: "500 DA", desc: "Frites de terre gratinées au fromage gruyère fondu", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Frites Gouda", price: "500 DA", desc: "Frites dorées nappées de gouda affiné fondu", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Frites Frommage Rouge", price: "500 DA", desc: "Frites dorées nappées de gouda affiné fondu", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Barquette Frites", price: "180 DA", desc: "Simple portion de frites maison croustillantes", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Boisson + Frites", price: "250 DA", desc: "Formule d'accompagnement associant frites et canette", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506783192022257685/Untitled_design_1.png?ex=6a0f84b3&is=6a0e3333&hm=091291a22cab14225240736ce88f6afe105a316831a71e10e8cff895a4fef01f&" }
+                ]
+            },
+            drinks: {
+                title: "Cafés",
+                badgeImage: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Café Noir", price: "100 DA", desc: "Espresso noir court, puissant et serré", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506783614178689024/images_3.jpg?ex=6a0f8518&is=6a0e3398&hm=9c606a69bab3bfe380ee72321f0b8726076f8e014769c02dac6c58b2b472858d&" },
+                    { name: "Maxwell", price: "100 DA", desc: "Instant classique de marque Maxwell", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506784073056784384/images_4.jpg?ex=6a0f8585&is=6a0e3405&hm=94424642a35388f55996c3e9b44be0e71220e25010fa6fba8419c3af0f1489dd&" },
+                    { name: "Espresso", price: "150 DA", desc: "Expresso traditionnel, grains italiens moulus minute", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506784264388214964/images_5.jpg?ex=6a0f85b3&is=6a0e3433&hm=f6756349d8299172cfc1d41801e51d0f512be6df4f51e679189d5563153851b1&" },
+                    { name: "Americano", price: "200 DA", desc: "Espresso allongé d'eau chaude", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506784503337713804/long_black_coffee.jpg?ex=6a0f85ec&is=6a0e346c&hm=e265a07c4b372ae5cf35a80ef89217b085a71d2866b3776943968553ebf9af85&" },
+                    { name: "Bonbon", price: "200 DA", desc: "Café gourmand sur lit de lait concentré sucré", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506784908436050070/shutterstock_135404954.jpg?ex=6a0f864c&is=6a0e34cc&hm=e072578fdda4f8fed03ab647e80e902db547f6124ec9a6c6f9784330b7ec15f7&" },
+                    { name: "Cafe L'Or", price: "200 DA", desc: "Double shot de café de marque L'Or", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506785139433148509/espresso-coffee-recipe04-500x500.png?ex=6a0f8683&is=6a0e3503&hm=02ad309f114a9e86063c9b5a83e6f4168fb42f5bcd641e2f84d3edab3f86a91e&" },
+                    { name: "Ice Coffee", price: "200 DA", desc: "Café infusé à froid servi sur des glaçons", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Coffee Luxe", price: "200 DA", desc: "Recette signature de café gourmet garnie de toppings", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Café au Lait", price: "150 DA", desc: "Expresso mélangé à du lait entier chaud", img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Maxwell au Lait", price: "150 DA", desc: "Café instantané Maxwell adouci au lait", img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Café Latte", price: "200 DA", desc: "Espresso, lait chaud et fine mousse onctueuse", img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Lait Chocolaté", price: "150 DA", desc: "Lait chaud mélangé à de la poudre de cacao", img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Cafe Macchiato/Mocca", price: "250 DA", desc: "Infusion de thé noir ou vert à la menthe", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506789468110323712/Marble_Mocha_Macchiato_a9484738-53c8-4a8a-ab14-61bed2c1f305.png?ex=6a0f8a8b&is=6a0e390b&hm=c8a5ed4ffc6502f7b4c4f9cc085106a0d6b03b4ca54b3c7000d4afd7aa58dcfb&" },
+                    { name: "Cappuccino", price: "200 DA", desc: "Expresso, lait chaud, mousse de lait saupoudrée de chocolat", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Cappuccino Saveur", price: "300 DA", desc: "Cappuccino parfumé au caramel, vanille ou noisette", img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Vanille", price: "300 DA", desc: "Glace vanille de qualité, lait entier frappé", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Chocolat", price: "350 DA", desc: "Glace chocolat onctueuse et filet de coulis de cacao", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Caramel", price: "350 DA", desc: "Glace caramel, sauce caramel beurre salé", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Noisette", price: "400 DA", desc: "Boisson glacée parfumée à la pâte de noisette", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Banane", price: "400 DA", desc: "Glace vanille mixée à une banane fraîche entière", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Caramel Sale", price: "400 DA", desc: "Glace fraise et pulpe de fraises fraîches", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Chocolat Banane", price: "450 DA", desc: "Brisures d'Oreo mixées avec de la crème glacée", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Ferrero", price: "500 DA", desc: "Brisures d'Oreo mixées avec de la crème glacée", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Bueno", price: "600 DA", desc: "Brisures d'Oreo mixées avec de la crème glacée", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },                                        
+                    { name: "Milkshake Lotus", price: "550 DA", desc: "Pâte à tartiner Spéculoos Lotus et glace vanille", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Milkshake Pistache", price: "600 DA", desc: "Crème glacée pistache et pistaches broyées", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Mojito Classique", price: "300 DA", desc: "Menthe fraîche pilée, tranches de citron vert, eau gazeuse, sirop", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Mojito Curacoa", price: "350 DA", desc: "Menthe fraîche pilée, tranches de citron vert, eau gazeuse, sirop", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Mojito Pina Colada", price: "400 DA", desc: "Menthe fraîche pilée, tranches de citron vert, eau gazeuse, sirop", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Mojito Saveur", price: "400 DA", desc: "Mojito aromatisé à la fraise, fruit de la passion ou mangue", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus d'Orange", price: "350 DA", desc: "Oranges pressées fraîches à la minute", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Citron", price: "300 DA", desc: "Citrons pressés émulsionnés à la menthe", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Fraise", price: "400 DA", desc: "Nectar de fraises fraîches mixées", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus d'Ananas", price: "400 DA", desc: "Nectar d'ananas pressé rafraîchissant", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus Cocktail", price: "550 DA", desc: "Mélange pressé de fruits de saison frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Banane", price: "400 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Citron Menthe", price: "350 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Peche", price: "400 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Pasteque", price: "400 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Melon", price: "400 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Kiwi", price: "450 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Jus de Cerise", price: "450 DA", desc: "Bananes mixées et allongées de lait frais", img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Pink Lady", price: "500 DA", desc: "Cocktail mixologie sans alcool fruité aux notes de grenadine et citron", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Sunset Lover", price: "500 DA", desc: "Cocktail mixologie sans alcool fruité aux notes de grenadine et citron", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Bora Bora", price: "500 DA", desc: "Cocktail mixologie sans alcool fruité aux notes de grenadine et citron", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Bella Luna", price: "500 DA", desc: "Cocktail mixologie sans alcool fruité aux notes de grenadine et citron", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Apple Rose", price: "500 DA", desc: "Cocktail mixologie sans alcool fruité aux notes de grenadine et citron", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Blue Hawaii", price: "500 DA", desc: "Cocktail tropical associant ananas et curaçao bleu", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Pina Colada", price: "500 DA", desc: "Cocktail onctueux à la crème de coco et jus d'ananas", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Margarita Mocktail", price: "500 DA", desc: "Boisson rafraîchissante citronnée au sel de mer", img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=400" }
+                ]
+            },
+            desserts: {
+                title: "Crêpes",
+                badgeImage: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Crêpe Chocolat", price: "350 DA", desc: "Nappage généreux de chocolat fondu de qualité", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506794259607715950/image_0651923_20210129_ob_3304f2_crepes-au-chocolat.jpg?ex=6a0f8f02&is=6a0e3d82&hm=cc625cd5904ccae1cf0de51687caacb92f9407eefcf04b1def42c6a0ace7bf1c&" },
+                    { name: "Crêpe Noisette", price: "400 DA", desc: "Tartinée de pâte de noisettes grillées", img: "https://cdn.discordapp.com/attachments/1504579863837933649/1506794548771422258/202.jpg?ex=6a0f8f47&is=6a0e3dc7&hm=9d1982bfa1302ed7e02bb8dcff1992fc29218f1ab953544d3453e9e25b8ea709&" },
+                    { name: "Crêpe Fruits", price: "450 DA", desc: "Garnie de rondelles de bananes et fraises de saison", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crêpe Fruits Secs", price: "550 DA", desc: "Saupoudrée d'éclats d'amandes, noix et noisettes", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crêpe 2 Fruits", price: "550 DA", desc: "Mélange fruité double au choix dans une crêpe souple", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crêpe Lotus", price: "600 DA", desc: "Nappée de brisures et crème de spéculoos Lotus", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crêpe Pistache", price: "600 DA", desc: "Crène de pistache fine et éclats de pistaches croquantes", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crêpe Dubai", price: "650 DA", desc: "Spécialité aux saveurs orientales inspirées de Dubaï", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "La Squadra", price: "800 DA", desc: "Crêpe géante garnie des meilleurs ingrédients du chef", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Supplément Fruit", price: "200 DA", desc: "Portion de fruits supplémentaire pour votre crêpe", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Supplément Chocolat", price: "100 DA", desc: "Double ration de chocolat fondu de votre choix", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Supplément Secs", price: "150 DA", desc: "Poignée supplémentaire d'éclats de fruits secs", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Supplément Saveur", price: "50 DA", desc: "Filet de sirop ou arôme au choix", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=400" }
+                ]
+            },
+            grillades: {
+                title: "Grillades",
+                badgeImage: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300",
+                items: [
+                    { name: "Viande Hachée", price: "Selon Marché", desc: "Portion de viande hachée grillée sur grille authentique", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Escalope Grillée", price: "Selon Marché", desc: "Escalope de poulet grillée assaisonnée", img: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Merguez Grillées", price: "Selon Marché", desc: "Merguez de bœuf grillées au feu de bois", img: "https://images.unsplash.com/photo-1525059536034-4967a8e1dca2?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Melfouf", price: "Selon Marché", desc: "Brochettes de foie de mouton entourées de crépine de graisse", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Foie d'Agneau", price: "Selon Marché", desc: "Foie d'agneau frais tranché finement et grillé", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Filet d'Agneau", price: "Selon Marché", desc: "Filet tendre d'agneau assaisonné aux herbes", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Brochette de Veau", price: "Selon Marché", desc: "Brochettes de morceaux de veau marinés", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Foie de Veau", price: "Selon Marché", desc: "Foie de veau saisi sur plaque de fonte", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Filet de Veau", price: "Selon Marché", desc: "Pièce noble de filet de veau tendre", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Entrecôte de Veau", price: "Selon Marché", desc: "Entrecôte de veau cuite sur braise de bois", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Grillade Sardine", price: "Selon Marché", desc: "Sardines fraîches du port grillées entières", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Grillade Dorade", price: "Selon Marché", desc: "Dorade royale entière ouverte et cuite sur grill", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Crevettes Grillées", price: "Selon Marché", desc: "Crevettes entières marinées à l'huile d'olive et ail", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Grillade Espadon", price: "Selon Marché", desc: "Tranche d'espadon frais saisie sur feu de bois", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Pavé de Saumon", price: "Selon Marché", desc: "Pavé de saumon grillé assaisonné au citron", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" },
+                    { name: "Autres Poissons", price: "Selon Marché", desc: "Arrivage quotidien du marché de poisson local", img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?auto=format&fit=crop&q=80&w=400" }
+                ]
+            }
+        };
+
+        let currentActiveKey = null;
+
+        // Extracts numerical value from price strings to ensure dynamic sorting
+        function parsePriceValue(priceStr) {
+            if (!priceStr || priceStr.includes("Selon Marché")) {
+                return 999999; // Sends variable items to the bottom of list
+            }
+            // Looks for the first number sequence (handles compound prices like "750 DA / 600 DA")
+            const matches = priceStr.match(/\d+/g);
+            if (matches && matches.length > 0) {
+                return parseInt(matches[0], 10);
+            }
+            return 0;
+        }
+
+        function loadMockupCategory(key, element) {
+            const target = document.getElementById("menu-target");
+            const buttons = document.querySelectorAll(".category-button");
+
+            // Toggle category off if selected again
+            if (currentActiveKey === key) {
+                currentActiveKey = null;
+                element.classList.remove("active");
+                target.innerHTML = `
+                    <div class="empty-state">
+                        Sélectionnez l'une de nos catégories ci-dessus pour charger la carte.
+                    </div>
+                `;
+                return;
+            }
+
+            currentActiveKey = key;
+            buttons.forEach(btn => btn.classList.remove("active"));
+            element.classList.add("active");
+
+            const data = menuCatalog[key];
+
+            // Sort items in ascending price order before rendering
+            const sortedItems = [...data.items].sort((a, b) => {
+                return parsePriceValue(a.price) - parsePriceValue(b.price);
+            });
+
+            let html = `
+                <div class="mockup-panel">
+                    <!-- Retro Curved Stripes -->
+                    <svg class="mockup-svg-bg" viewBox="0 0 800 300" preserveAspectRatio="none">
+                        <path d="M 0 110 Q 250 290, 800 140 L 800 0 L 0 0 Z" fill="#FF3333" />
+                        <path d="M 0 90 Q 240 250, 800 110 L 800 0 L 0 0 Z" fill="#ffffff" />
+                        <path d="M 0 70 Q 230 210, 800 80 L 800 0 L 0 0 Z" fill="#00B050" />
+                    </svg>
+
+                    <!-- Featured Circle Preview Badge -->
+                    <div class="floating-badge">
+                        <img src="${data.badgeImage}" alt="featured decoration">
+                    </div>
+
+                    <div class="mockup-header">
+                        <h2 class="mockup-title">
+                            <span>Our</span>${data.title}
+                        </h2>
+                    </div>
+
+                    <div class="mockup-grid">
+            `;
+
+            // Loop and assign block color sequential pattern (3 Green, 3 White, 3 Red)
+            sortedItems.forEach((item, index) => {
+                let cardColorClass = '';
+                const patternIndex = index % 9; // Repeats block pattern every 9 items
+
+                if (patternIndex < 3) {
+                    cardColorClass = 'card-block-green';
+                } else if (patternIndex < 6) {
+                    cardColorClass = 'card-block-white';
+                } else {
+                    cardColorClass = 'card-block-red';
+                }
+
+                html += `
+                    <div class="mockup-card ${cardColorClass}">
+                        <div class="card-image-box">
+                            <img src="${item.img}" alt="${item.name}">
+                        </div>
+                        <div>
+                            <div class="card-meta">
+                                <h4 class="card-name">${item.name}</h4>
+                                <span class="card-price">${item.price}</span>
+                            </div>
+                            <p class="card-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            target.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
